@@ -1,0 +1,45 @@
+syntax = 'proto3';
+package protos;
+option go_package = "github.com/kaidyth/ender/protos";
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    bytes value = 1;
+    bytes nonce = 2;
+}
+
+message ExistsRequest {
+    string key = 1;
+}
+
+message ExistsResponse {
+    bool exists = 1;
+}
+
+message SetRequest {
+    string label = 1;
+    bytes value = 2;
+    bytes nonce = 3;
+}
+
+message SetResponse {
+    bool ok = 1;
+}
+
+message DeleteRequest {
+    string key = 1;
+}
+
+message DeleteResponse {
+    bool ok = 1;
+}
+
+service EnderService {
+    rpc Get(GetRequest) returns (GetResponse) {};
+    rpc Set(SetRequest) returns (SetResponse) {};
+    rpc Exists(ExistsRequest) returns (ExistsResponse) {};
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}

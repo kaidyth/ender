@@ -1,0 +1,18 @@
+[Unit]
+Description=Ender - a temporary secure secret stoage system
+Documentation=https://www.kaidyth.com
+After=network.target
+
+StartLimitIntervalSec=500
+StartLimitBurst=25
+
+[Service]
+PermissionsStartOnly=true
+NoNewPrivileges=true
+WorkingDirectory=~/.ender
+ExecStart=/usr/local/bin/ender daemon --socket=default.socket
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
