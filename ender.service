@@ -9,7 +9,7 @@ StartLimitBurst=25
 [Service]
 PermissionsStartOnly=true
 NoNewPrivileges=true
-WorkingDirectory=~/.ender
+WorkingDirectory=/home/%u/.ender
 ExecStart=/usr/local/bin/ender daemon --socket=default.socket
 Restart=on-failure
 RestartSec=5s

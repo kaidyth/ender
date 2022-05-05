@@ -33,6 +33,13 @@ The ender daemon is the backend storage system. On termination it will delete al
 
 Ender can be launched by running `ender daemon`. It is recommended to use the provided `ender.service` systemd script and install it to your user's systemd folder and start it on login to ensure you have a keychain available across multiple terminal sessions.
 
+```
+mkdir -p ~/.config/systemd/user
+cp ender.service ~/.config/systemd/user
+systemctl --user start ender
+systemctl --user enable ender
+```
+
 ### Session
 Ender provides an optional `daemon-helper`, which can be used to create _session_ keychains. If you need a per-session secret store you can add the following to your .profile or similar file:
 
