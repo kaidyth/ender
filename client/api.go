@@ -104,6 +104,7 @@ func Del(socketAddress string, chest string, key string) (bool, error) {
 		var request pb.DeleteRequest
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
+		request.Key = key
 
 		result, err := (*client).Delete(ctx, &request)
 		if err == nil && result.Ok {

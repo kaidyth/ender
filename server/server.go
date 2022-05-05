@@ -62,7 +62,16 @@ func (s *instance) Get(ctx context.Context, in *pb.GetRequest) (*pb.GetResponse,
 func (s *instance) Delete(ctx context.Context, in *pb.DeleteRequest) (*pb.DeleteResponse, error) {
 	var response pb.DeleteResponse
 	err := db.Update(func(txn *badger.Txn) error {
-		return txn.Delete([]byte(in.Key))
+		var existsRequest pb.ExistsRequest
+		existsRequest.Key = in.Key
+		if result, err := s.Exists(ctx, &existsRequest); err == nil && result.Exists {
+			errr := txn.Delete([]byte(in.Key + "_value"))
+			txn.Delete([]byte(in.Key + "_nonce"))
+
+			return errr
+		} else {
+			return err
+		}
 	})
 
 	response.Ok = (err == nil)
